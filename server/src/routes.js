@@ -26,9 +26,10 @@ router.post("/cadastrar", (req, res) => {
     const { name, email, password } = validData;
     const query = `
      INSERT INTO users (name, email, password)
-     VALUES ('${name}', '${email}', '${password}')
+     VALUES ($1, $2, $3)
     `;
-    client.query(query, (err, result) => {
+    const values = [name, email, password];
+    client.query(query, values, (err, result) => {
       if (err) {
         return res.status(400).send({
           message: "erro ao tentar cadastrar usuario",
@@ -61,6 +62,58 @@ router.get("/listar", (req, res) => {
     console.log(error);
   }
 });
+
+//COMENTARIOS
+router.post("/posts", (req, res) => {
+  try {
+    const postSchema = Z.object({
+      title: Z.string().min(5),
+      description: Z.string().min(5),
+      image: Z.string().optional(),
+      user_id: Z.number(),
+    }).required();
+    const validData = postSchema.parse(req.body);
+    const { title, description, image, user_id } = validData;
+    const query = `
+      INSERT INTO posts (title, description, image, user_id)
+      VALUES ($1, $2, $3, $4)
+    `;
+    const values = [title, description, image, user_id];
+
+    client.query(query, values, (err, results) => {
+      if (err) {
+        return res.status(500).send({
+          message: "erro ao tentar criar um post",
+        });
+      } else {
+        return res.status(200).send({
+          message: "post criado com sucesso",
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: "Dados invalidos!",
+    });
+  }
+});
+
+// router.post("/posts", (req, res) => {
+//   const { title, description, image, user_id } = req.body;
+
+//   const query =
+//     "INSERT INTO posts (title, description, image, user_id) VALUES ($1, $2, $3, $4) RETURNING *";
+//   const values = [title, description, image, user_id];
+
+//   client.query(query, values, (err, result) => {
+//     if (err) {
+//       res.status(400).send({ message: "Erro ao adicionar post" });
+//     } else {
+//       const post = result.rows[0];
+//       res.status(201).send({ post });
+//     }
+//   });
+// });
 
 // //deletar
 
