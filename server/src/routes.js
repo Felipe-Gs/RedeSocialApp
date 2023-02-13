@@ -13,6 +13,7 @@ const client = new Client({
 
 client.connect();
 
+// arquivos de rotas
 router.post("/inserir", (req, res) => {
   {
   }
