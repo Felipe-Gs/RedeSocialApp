@@ -13,3 +13,5 @@ export function AppRoutes() {
     </Navigator>
   );
 }
+
+//rotas
