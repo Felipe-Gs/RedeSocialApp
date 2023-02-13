@@ -45,6 +45,38 @@ router.post("/cadastrar", (req, res) => {
   }
 });
 
+//fazer login
+router.post("/login", (req, res) => {
+  try {
+    const postSchema = Z.object({
+      email: Z.string().email(),
+      password: Z.string().min(3),
+    }).required();
+
+    const validData = postSchema.parse(req.body);
+    const { email, password } = validData;
+    const query = `SELECT * FROM users WHERE email = $1 AND password = $2`;
+    client.query(query, [email, password], (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          message: "Não foi possivel realizar o login",
+        });
+      } else if (result.rows.length > 0) {
+        //usuario encontrado, retorna os dados dele
+        return res.status(200).send({
+          usuario: result.rows[0],
+        });
+      } else {
+        return res.status(401).send({
+          message: "usuario invalido",
+        });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // listar
 router.get("/listar", (req, res) => {
   try {
