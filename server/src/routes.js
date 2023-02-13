@@ -98,23 +98,42 @@ router.post("/posts", (req, res) => {
   }
 });
 
-// router.post("/posts", (req, res) => {
-//   const { title, description, image, user_id } = req.body;
+// visualizar os posts por id especifico, do usuario que esta logado
+router.get("/visualizarPost/:id", (req, res) => {
+  const id = req.params.id;
+  try {
+    const query = `SELECT * FROM posts where user_id = ${id}`;
+    client.query(query, (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          message: "erro ao tentar buscar os posts",
+        });
+      } else {
+        res.status(200).send(result.rows);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
-//   const query =
-//     "INSERT INTO posts (title, description, image, user_id) VALUES ($1, $2, $3, $4) RETURNING *";
-//   const values = [title, description, image, user_id];
-
-//   client.query(query, values, (err, result) => {
-//     if (err) {
-//       res.status(400).send({ message: "Erro ao adicionar post" });
-//     } else {
-//       const post = result.rows[0];
-//       res.status(201).send({ post });
-//     }
-//   });
-// });
-
+// visualizar todos os post
+router.get("/visualizarPost", (req, res) => {
+  try {
+    const query = `SELECT * FROM posts`;
+    client.query(query, (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          message: "erro ao tentar buscar os posts",
+        });
+      } else {
+        res.status(200).send(result.rows);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 // //deletar
 
 // router.delete("/deletar/:id", (req, res) => {
