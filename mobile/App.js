@@ -8,9 +8,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthContextProvider>
-        <PaperProvider>
-          <AppRoutes />
-        </PaperProvider>
+        <AppRoutes />
       </AuthContextProvider>
     </NavigationContainer>
   );
