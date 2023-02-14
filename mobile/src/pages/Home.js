@@ -1,22 +1,53 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Button } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../hooks/useAuth";
 
+import Login from "./Login";
+
 export default function Home() {
   const { navigate } = useNavigation();
   const { teste } = useAuth();
 
   return (
-    <View style={{ marginTop: 100 }}>
-      <Text>Home</Text>
-      <Button mode="outlined" onPress={teste}>
-        Ir para login
+    <View style={styles.container}>
+      <Text style={styles.textCenter}>Social Media</Text>
+
+      <Button
+        style={{
+          width: "100%",
+          height: 50,
+          borderRadius: 10,
+        }}
+        mode="contained"
+        onPress={() => navigate("Cadastro")}
+      >
+        Criar nova conta
+      </Button>
+      <Button
+        onPress={() => navigate("Login")}
+        style={{ marginTop: 20, width: "100%" }}
+      >
+        Entrar
       </Button>
     </View>
   );
 }
 
-// pagina Home
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "white",
+  },
+  textCenter: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 50,
+    color: "black",
+  },
+});
