@@ -47,6 +47,18 @@ export function AuthContextProvider({ children }) {
     }
   };
 
+  const [postId, setPostId] = useState();
+
+  const handlePostComents = async (id) => {
+    try {
+      const response = await api.get(`/visualizarPost/${id}`);
+      setPostId(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -61,6 +73,9 @@ export function AuthContextProvider({ children }) {
         name,
         setName,
         handleCadastro,
+        postId,
+        setPostId,
+        handlePostComents,
       }}
     >
       {children}
