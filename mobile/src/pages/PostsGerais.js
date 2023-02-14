@@ -10,9 +10,12 @@ import {
 import Cards from "../components/Cards";
 import api from "../axios/api";
 
+import { useNavigation } from "@react-navigation/native";
+
 import { AntDesign } from "@expo/vector-icons";
 
 export default function PostsGerais() {
+  const { navigate } = useNavigation();
   const [posts, setPosts] = useState();
   const [search, setSearch] = useState("");
 
@@ -32,7 +35,7 @@ export default function PostsGerais() {
       }
     };
     handleDescription();
-  }, []);
+  }, [posts]);
 
   return (
     <View style={{ flex: 1, marginTop: 50 }}>
@@ -73,7 +76,7 @@ export default function PostsGerais() {
         icon="plus"
         iconColor="black"
         size={30}
-        onPress={() => console.log("Pressed")}
+        onPress={() => navigate("CriarPost")}
       />
     </View>
   );
