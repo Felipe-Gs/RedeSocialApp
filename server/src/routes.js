@@ -134,7 +134,7 @@ router.post("/posts", (req, res) => {
 router.get("/visualizarPost/:id", (req, res) => {
   const id = req.params.id;
   try {
-    const query = `SELECT * FROM posts where user_id = ${id}`;
+    const query = `SELECT * FROM posts where id = ${id}`;
     client.query(query, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -164,6 +164,62 @@ router.get("/visualizarPost", (req, res) => {
     });
   } catch (error) {
     console.log(error);
+  }
+});
+
+//visualizar comentarios
+router.get("/comentarios/:id", (req, res) => {
+  const post_id = req.params.id;
+  try {
+    const query = `SELECT * FROM comments where post_id = ${post_id}`;
+    client.query(query, (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          message: "erro ao tentar carregar os comentarios",
+        });
+      } else {
+        return res.status(200).send({
+          comments: result.rows,
+        });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//criar um comentarios
+router.post("/comments", (req, res) => {
+  try {
+    const commentSchema = Z.object({
+      text: Z.string(),
+      user_id: Z.number(),
+      post_id: Z.number(),
+    }).required();
+    const validData = commentSchema.parse(req.body);
+    const { text, user_id, post_id } = validData;
+
+    const query = `
+    INSERT INTO comments (text, user_id, post_id)
+    VALUES ($1, $2, $3)
+  `;
+    const values = [text, user_id, post_id];
+
+    client.query(query, values, (err, results) => {
+      if (err) {
+        return res.status(500).send({
+          message: "erro ao tentar fazer comentario",
+        });
+      } else {
+        return res.status(200).send({
+          message: "comantario adicioando com sucesso",
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: "Dados inválidos!",
+    });
   }
 });
 // //deletar
