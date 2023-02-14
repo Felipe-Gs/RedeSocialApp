@@ -4,8 +4,12 @@ import { Avatar } from "react-native-paper";
 import { Foundation } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../hooks/useAuth";
 
-export default function Cards({ title, description, img }) {
+export default function Cards({ title, description, img, id }) {
+  const { navigate } = useNavigation();
+  const { handlePostComents, postId, setPostId } = useAuth();
   return (
     <View
       style={{
@@ -36,12 +40,15 @@ export default function Cards({ title, description, img }) {
           />
         </View>
         <View style={{ flexDirection: "row", marginTop: 5 }}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => (navigate("Comentarios"), handlePostComents(id))}
+          >
             <Foundation name="comments" size={24} color="black" />
           </TouchableOpacity>
           <TouchableOpacity style={{ marginLeft: 15 }}>
             <AntDesign name="hearto" size={24} color="black" />
           </TouchableOpacity>
+          <Text>{id}</Text>
         </View>
       </View>
     </View>
