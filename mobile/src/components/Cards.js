@@ -3,6 +3,7 @@ import React from "react";
 import { Avatar } from "react-native-paper";
 import { Foundation } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Cards({ title, description, img }) {
   return (
@@ -11,13 +12,18 @@ export default function Cards({ title, description, img }) {
         padding: 10,
         marginTop: 20,
         flexDirection: "row",
-        alignItems: "center",
-        borderTopWidth: 1,
-
+        // alignItems: "center",
+        borderTopWidth: 0.2,
         borderColor: "grey",
       }}
     >
-      <Avatar.Icon size={45} icon="folder" />
+      {/* <Avatar.Icon size={45} icon="folder" /> */}
+      <Ionicons
+        style={{ marginLeft: 10 }}
+        name="ios-person-outline"
+        size={30}
+        color="black"
+      />
       <View style={{ marginLeft: 20, width: "85%" }}>
         <Text style={{ fontWeight: "bold" }}>{title}</Text>
         <Text>{description}</Text>
