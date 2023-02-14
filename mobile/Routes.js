@@ -7,6 +7,7 @@ import Login from "./src/pages/Login";
 import Cadastro from "./src/pages/Cadastro";
 import PostsGerais from "./src/pages/PostsGerais";
 import CriarPost from "./src/pages/CriarPost";
+import Comentarios from "./src/pages/Comentarios";
 
 export function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export function AppRoutes() {
       <Screen name="Cadastro" component={Cadastro} />
       <Screen name="PostsGerais" component={PostsGerais} />
       <Screen name="CriarPost" component={CriarPost} />
+      <Screen name="Comentarios" component={Comentarios} />
     </Navigator>
   );
 }
