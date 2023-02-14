@@ -16,9 +16,11 @@ export default function PostsGerais() {
   const [posts, setPosts] = useState();
   const [search, setSearch] = useState("");
 
-  const fiterdados = posts.filter((item) =>
-    item.description.toLowerCase().includes(search.toLowerCase())
-  );
+  const fiterdados = posts
+    ? posts.filter((item) =>
+        item.description.toLowerCase().includes(search.toLowerCase())
+      )
+    : [];
 
   useEffect(() => {
     const handleDescription = async () => {
