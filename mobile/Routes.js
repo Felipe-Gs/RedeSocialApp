@@ -6,6 +6,7 @@ import Home from "./src/pages/Home";
 import Login from "./src/pages/Login";
 import Cadastro from "./src/pages/Cadastro";
 import PostsGerais from "./src/pages/PostsGerais";
+import CriarPost from "./src/pages/CriarPost";
 
 export function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ export function AppRoutes() {
       <Screen name="Login" component={Login} />
       <Screen name="Cadastro" component={Cadastro} />
       <Screen name="PostsGerais" component={PostsGerais} />
+      <Screen name="CriarPost" component={CriarPost} />
     </Navigator>
   );
 }
