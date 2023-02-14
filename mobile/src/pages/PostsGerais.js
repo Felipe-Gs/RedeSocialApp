@@ -1,18 +1,10 @@
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
-import {
-  Avatar,
-  Button,
-  IconButton,
-  Searchbar,
-  MD3Colors,
-} from "react-native-paper";
+import { Avatar, IconButton, Searchbar, MD3Colors } from "react-native-paper";
 import Cards from "../components/Cards";
 import api from "../axios/api";
 
 import { useNavigation } from "@react-navigation/native";
-
-import { AntDesign } from "@expo/vector-icons";
 
 export default function PostsGerais() {
   const { navigate } = useNavigation();
@@ -67,6 +59,7 @@ export default function PostsGerais() {
               title={item.title}
               description={item.description}
               img={item.image}
+              id={item.id}
             />
           </View>
         )}
