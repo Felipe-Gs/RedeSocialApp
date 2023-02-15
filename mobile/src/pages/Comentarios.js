@@ -10,6 +10,10 @@ export default function Comentarios({ route }) {
   const { postId, setPostId, usuario } = useAuth();
   const [dados, setDados] = useState();
   const [text, setText] = useState("");
+  const date = new Date(postId.created_at);
+  const formattedDate = `${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 
   useEffect(() => {
     const CarregarComentarios = async () => {
@@ -36,6 +40,16 @@ export default function Comentarios({ route }) {
       console.log(error);
     }
   };
+
+  function formatarData(data) {
+    const dataObj = new Date(data);
+    const dia = dataObj.getDate().toString().padStart(2, "0");
+    const mes = (dataObj.getMonth() + 1).toString().padStart(2, "0");
+    const ano = dataObj.getFullYear().toString();
+    const horas = dataObj.getHours().toString().padStart(2, "0");
+    const minutos = dataObj.getMinutes().toString().padStart(2, "0");
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+  }
 
   return (
     <View style={styles.container}>
@@ -73,7 +87,7 @@ export default function Comentarios({ route }) {
           dados.map((item, index) => {
             return (
               <Cards
-                title={item.created_at}
+                title={formatarData(item.created_at)}
                 description={item.text}
                 user_name={item.user_name}
               />
