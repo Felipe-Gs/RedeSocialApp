@@ -1,8 +1,11 @@
 import { View, Text } from "react-native";
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import api from "../axios/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//AsyncStorage
 export const AuthContext = createContext({});
+const KEY = "AUTH_KEY";
 
 export function AuthContextProvider({ children }) {
   // funções login
@@ -21,6 +24,7 @@ export function AuthContextProvider({ children }) {
         password,
       });
       setUsuario(response.data.usuario);
+      await AsyncStorage.setItem(KEY, JSON.stringify(response.data.usuario));
       // console.log(usuario);
     } catch (error) {
       console.log(error);
@@ -58,6 +62,18 @@ export function AuthContextProvider({ children }) {
       console.log(error);
     }
   };
+
+  //verifica se ja fez o login alguma vez
+  useEffect(() => {
+    async function checkAuth() {
+      const storedData = await AsyncStorage.getItem(KEY);
+      if (storedData) {
+        setUsuario(JSON.parse(storedData));
+      }
+    }
+    // console.log(usuario);
+    checkAuth();
+  }, []);
 
   return (
     <AuthContext.Provider
