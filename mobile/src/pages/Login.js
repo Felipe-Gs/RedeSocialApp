@@ -19,7 +19,9 @@ export default function Login() {
   } = useAuth();
 
   useEffect(() => {
-    usuario && navigate("PostsGerais");
+    {
+      usuario && navigate("PostsGerais");
+    }
   }, [usuario]);
 
   return (
