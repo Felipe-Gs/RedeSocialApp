@@ -10,10 +10,6 @@ export default function Comentarios({ route }) {
   const { postId, setPostId, usuario } = useAuth();
   const [dados, setDados] = useState();
   const [text, setText] = useState("");
-  const date = new Date(postId.created_at);
-  const formattedDate = `${date.getDate()}/${
-    date.getMonth() + 1
-  }/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 
   useEffect(() => {
     const CarregarComentarios = async () => {
