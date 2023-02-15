@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
@@ -9,7 +9,6 @@ import Login from "./Login";
 
 export default function Home() {
   const { navigate } = useNavigation();
-  const { teste } = useAuth();
 
   return (
     <View style={styles.container}>
