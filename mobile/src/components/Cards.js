@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../hooks/useAuth";
 
-export default function Cards({ title, description, img, id }) {
+export default function Cards({ title, description, img, id, user_name }) {
   const { navigate } = useNavigation();
   const { handlePostComents, postId, setPostId } = useAuth();
   return (
@@ -29,6 +29,7 @@ export default function Cards({ title, description, img, id }) {
         color="black"
       />
       <View style={{ marginLeft: 20, width: "85%" }}>
+        <Text style={{ fontWeight: "bold" }}>{user_name}</Text>
         <Text style={{ fontWeight: "bold" }}>{title}</Text>
         <Text>{description}</Text>
         <View style={{ width: "100%", height: 100 }}>
@@ -41,7 +42,9 @@ export default function Cards({ title, description, img, id }) {
         </View>
         <View style={{ flexDirection: "row", marginTop: 5 }}>
           <TouchableOpacity
-            onPress={() => (navigate("Comentarios"), handlePostComents(id))}
+            onPress={() => (
+              navigate("Comentarios", { idDoPost: id }), handlePostComents(id)
+            )}
           >
             <Foundation name="comments" size={24} color="black" />
           </TouchableOpacity>

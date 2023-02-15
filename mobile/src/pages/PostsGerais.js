@@ -22,6 +22,7 @@ export default function PostsGerais() {
       try {
         const response = await api.get("/visualizarPost");
         setPosts(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -56,6 +57,7 @@ export default function PostsGerais() {
         renderItem={({ item }) => (
           <View style={{ width: "100%" }}>
             <Cards
+              user_name={item.user_name}
               title={item.title}
               description={item.description}
               img={item.image}

@@ -24,7 +24,11 @@ export function AppRoutes() {
       <Screen name="Cadastro" component={Cadastro} />
       <Screen name="PostsGerais" component={PostsGerais} />
       <Screen name="CriarPost" component={CriarPost} />
-      <Screen name="Comentarios" component={Comentarios} />
+      <Screen
+        name="Comentarios"
+        component={Comentarios}
+        initialParams={{ idDoPost: 0 }}
+      />
     </Navigator>
   );
 }

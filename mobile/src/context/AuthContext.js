@@ -21,7 +21,7 @@ export function AuthContextProvider({ children }) {
         password,
       });
       setUsuario(response.data.usuario);
-      console.log(usuario);
+      // console.log(usuario);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +53,7 @@ export function AuthContextProvider({ children }) {
     try {
       const response = await api.get(`/visualizarPost/${id}`);
       setPostId(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }

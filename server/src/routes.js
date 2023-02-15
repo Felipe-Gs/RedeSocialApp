@@ -103,14 +103,15 @@ router.post("/posts", (req, res) => {
       description: Z.string().min(5),
       image: Z.string().optional(),
       user_id: Z.number(),
+      user_name: Z.string().optional(),
     }).required();
     const validData = postSchema.parse(req.body);
-    const { title, description, image, user_id } = validData;
+    const { title, description, image, user_id, user_name } = validData;
     const query = `
-      INSERT INTO posts (title, description, image, user_id)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO posts (title, description, image, user_id, user_name)
+      VALUES ($1, $2, $3, $4, $5)
     `;
-    const values = [title, description, image, user_id];
+    const values = [title, description, image, user_id, user_name];
 
     client.query(query, values, (err, results) => {
       if (err) {
@@ -195,15 +196,16 @@ router.post("/comments", (req, res) => {
       text: Z.string(),
       user_id: Z.number(),
       post_id: Z.number(),
+      user_name: Z.string(),
     }).required();
     const validData = commentSchema.parse(req.body);
-    const { text, user_id, post_id } = validData;
+    const { text, user_id, post_id, user_name } = validData;
 
     const query = `
-    INSERT INTO comments (text, user_id, post_id)
-    VALUES ($1, $2, $3)
+    INSERT INTO comments (text, user_id, post_id, user_name)
+    VALUES ($1, $2, $3, $4)
   `;
-    const values = [text, user_id, post_id];
+    const values = [text, user_id, post_id, user_name];
 
     client.query(query, values, (err, results) => {
       if (err) {

@@ -22,6 +22,7 @@ export default function CriarPost() {
         description,
         image,
         user_id,
+        user_name: usuario.name,
       });
       alert(response.data.message);
     } catch (error) {
