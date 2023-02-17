@@ -86,10 +86,14 @@ export default function Comentarios({ route }) {
                 title={formatarData(item.created_at)}
                 description={item.text}
                 user_name={item.user_name}
+                deletar="delete"
+                idDoComentario={item.id}
+                idDoPost={item.post_id}
               />
             );
           })}
       </ScrollView>
+      {/* {console.log(dados)}: */}
       {/* {console.log("os dados od usuairo", usuario)} */}
       {/* {console.log("esse é a valriavel post id", { postId })} */}
     </View>
