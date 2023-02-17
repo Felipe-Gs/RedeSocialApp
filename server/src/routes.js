@@ -224,6 +224,28 @@ router.post("/comments", (req, res) => {
     });
   }
 });
+
+router.delete("/deletarComentario/:post_id/:id", (req, res) => {
+  const post_id = req.params.post_id;
+  const id = req.params.id;
+  try {
+    const query = `DELETE FROM comments where post_id = ${post_id} AND id =${id}`;
+    client.query(query, (err, result) => {
+      if (err) {
+        console.error(res);
+        return res.status(500).send({
+          message: "erro ao tentar deletar um comentario",
+        });
+      } else {
+        return res.status(200).send({
+          message: "comentario deletado com sucesso",
+        });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 // //deletar
 
 // router.delete("/deletar/:id", (req, res) => {
