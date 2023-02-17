@@ -63,6 +63,15 @@ export function AuthContextProvider({ children }) {
     }
   };
 
+  const handleDeleteComents = async (id, post_id) => {
+    try {
+      const response = await api.delete(`/deletarComentario/${post_id}/${id}`);
+      alert(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //verifica se ja fez o login alguma vez
   useEffect(() => {
     async function checkAuth() {
@@ -92,6 +101,7 @@ export function AuthContextProvider({ children }) {
         postId,
         setPostId,
         handlePostComents,
+        handleDeleteComents,
       }}
     >
       {children}
